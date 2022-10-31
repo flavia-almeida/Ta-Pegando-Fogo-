@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyThemes{
+class MyThemes {
   static final darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.grey.shade900,
+    scaffoldBackgroundColor: const Color.fromRGBO(35, 35, 35, 1.0),
   );
 
   static final lightTheme = ThemeData(
-      scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
   );
 }

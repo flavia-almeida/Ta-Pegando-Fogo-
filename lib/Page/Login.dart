@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'Home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,25 +15,30 @@ class _login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final String png = MediaQuery.of(context).platformBrightness == Brightness.dark
-        ?'lib/Images/TPFB_white.png'
-        :'lib/Images/TPFB_dark.png';
+    final String png =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? 'lib/Images/TPFB_white.png'
+            : 'lib/Images/TPFB_dark.png';
 
-    final Color fillColor = MediaQuery.of(context).platformBrightness == Brightness.dark
-        ?const Color.fromRGBO(17, 17, 17, 1.0)
-        :Colors.white70;
+    final Color fillColor =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? const Color.fromRGBO(17, 17, 17, 1.0)
+            : Colors.white70;
 
-    final Color textColor = MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? const Color.fromRGBO(246, 246, 246, 1.0)
-        : const Color.fromRGBO(102, 102, 102, 1.0);
+    final Color textColor =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? const Color.fromRGBO(246, 246, 246, 1.0)
+            : const Color.fromRGBO(102, 102, 102, 1.0);
 
-    final Color redColor = MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? const Color.fromRGBO(246, 246, 246, 1.0)
-        : const Color.fromRGBO(230, 60, 66, 1.0);
+    final Color redColor =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? const Color.fromRGBO(246, 246, 246, 1.0)
+            : const Color.fromRGBO(230, 60, 66, 1.0);
 
-    final Color TxtHintColor = MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? Color.fromRGBO(246, 246, 246, 1.0)
-        : Color.fromRGBO(102, 102, 102, 1.0);
+    final Color TxtHintColor =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? const Color.fromRGBO(246, 246, 246, 1.0)
+            : const Color.fromRGBO(102, 102, 102, 1.0);
     return Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
@@ -43,20 +48,15 @@ class _login extends State<Login> {
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
-                child:
-                Image.asset(png, width: 130)
-            ),
+                child: Image.asset(png, width: 130)),
             //Titulo:
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: Text(
                   'Tá Pegando Fogo?',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: textColor),
-                )
-            ),
+                  style: TextStyle(fontSize: 16, color: textColor),
+                )),
 
             const SizedBox(height: 80),
             //Login:
@@ -67,15 +67,13 @@ class _login extends State<Login> {
               child: TextField(
                 textAlign: TextAlign.start,
                 controller: nameController,
+                style: TextStyle(color: TxtHintColor, fontSize: 13),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                     filled: true,
-                    hintStyle: TextStyle(
-                        color: TxtHintColor,
-                      fontSize: 13
-                    ),
+                    hintStyle: TextStyle(color: TxtHintColor, fontSize: 13),
                     hintText: "Login",
                     fillColor: fillColor),
               ),
@@ -90,15 +88,13 @@ class _login extends State<Login> {
               child: TextField(
                   obscureText: true,
                   controller: passwordController,
+                  style: TextStyle(color: TxtHintColor, fontSize: 13),
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       filled: true,
-                      hintStyle: TextStyle(
-                          color: TxtHintColor,
-                        fontSize: 13
-                      ),
+                      hintStyle: TextStyle(color: TxtHintColor, fontSize: 13),
                       hintText: "Senha",
                       fillColor: fillColor)),
             ),
@@ -110,10 +106,7 @@ class _login extends State<Login> {
               },
               child: Text(
                 'Esqueci minha senha',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: redColor
-                ),
+                style: TextStyle(fontSize: 16, color: redColor),
               ),
             ),
             //ElevatedButton:
@@ -125,19 +118,19 @@ class _login extends State<Login> {
                     onPressed: () {
                       print(nameController.text);
                       print(passwordController.text);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const Home()));
                       //login(nameController.text, passwordController.text, context);
                     },
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(const Color.fromRGBO(228, 37, 44, 1.0)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                              //side: BorderSide(color: Colors.red)
-                            )
-                        )
-                    )
-                )
-            ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromRGBO(228, 37, 44, 1.0)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                          //side: BorderSide(color: Colors.red)
+                        ))))),
             const SizedBox(height: 30),
           ],
         ));
