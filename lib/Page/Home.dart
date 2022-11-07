@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'History.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -58,14 +60,20 @@ class _home extends State<Home> with SingleTickerProviderStateMixin {
                   controller: controller,
                   tabs: const [
                 Tab(
-                  icon: Icon(CupertinoIcons.graph_square_fill),
+                  icon: Icon(
+                    FontAwesomeIcons.chartSimple,
+                    size: 17,
+                  ),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text("STATUS"),
                   ),
                 ),
                 Tab(
-                  icon: Icon(CupertinoIcons.device_desktop),
+                  icon: Icon(
+                    FontAwesomeIcons.towerBroadcast,
+                    size: 17,
+                  ),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text("DISPOSITIVOS"),
@@ -75,10 +83,7 @@ class _home extends State<Home> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: controller,
-          children: const [
-            Center(child: Text('Status Content')),
-            Center(child: Text('Dispositivos Content'))
-          ],
+          children: [History(), Center(child: Text('Dispositivos Content'))],
         ),
       );
 }
