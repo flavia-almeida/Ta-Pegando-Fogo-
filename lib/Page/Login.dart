@@ -1,20 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../shared/helpers/snack_bar_helper.dart';
 import 'Home.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../Providers/providers.dart';
+import '../models/auth_response.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Login extends ConsumerWidget {
+  Login({Key? key}) : super(key: key);
+  TextEditingController nameController = TextEditingController.fromValue(
+      const TextEditingValue(text: "teste@gmail.com"));
+  TextEditingController passwordController =
+      TextEditingController.fromValue(const TextEditingValue(text: "123456"));
 
   @override
-  State<Login> createState() => _login();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
 
-class _login extends State<Login> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+    ref.listen<AsyncValue<AuthResponse?>>(authProvider, (_, state) {
+      state.whenOrNull(
+        loading: () {},
+        data: (value) {
+          if (value != null && value.userId != "") {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const Home()));
+            //ref.read(userProvider.notifier).getUserById(value.userId);
+          }
+        },
+        error: (error, _) => showErrorSnackBar(context, error),
+      );
+    });
 
-  @override
-  Widget build(BuildContext context) {
     final String png =
         MediaQuery.of(context).platformBrightness == Brightness.dark
             ? 'lib/Images/TPFB_white.png'
@@ -116,10 +132,9 @@ class _login extends State<Login> {
                 child: ElevatedButton(
                     child: const Text('Entrar'),
                     onPressed: () {
-                      print(nameController.text);
-                      print(passwordController.text);
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const Home()));
+                      ref.read(authProvider.notifier).authenticate(
+                          nameController.text, passwordController.text);
+
                       //login(nameController.text, passwordController.text, context);
                     },
                     style: ButtonStyle(
